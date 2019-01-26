@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, StyleSheet, Text, Button, View, TextInput } from 'react-native';
 import WebView from 'rn-webview';
 import {AsyncStorage} from 'react-native';
+import Registered from "./Registered";
 
 function getUrlVars(location) {
   var vars = {};
@@ -42,12 +43,24 @@ export default class App extends React.Component {
     var url = state.url;
     if(getUrlVars(url)['vid']){
       AsyncStorage.setItem('@Carma:vid', getUrlVars(url)['vid']).then(() => {
+        this.setState({vid: getUrlVars(url)['vid']});
         this.setModalVisible(false);
       });
     }
   }
+
+  deleteRegistration = () => {
+    AsyncStorage.removeItem('@Carma:vid');
+    this.setState({vid: null});
+  }
   
   render() {
+    if(this.state.vid){
+      return (<Registered 
+        vid={this.state.vid}
+        deleteRegistration={this.deleteRegistration}/>)
+    }
+
     return (
       <View style={styles.container}>
         <Text>This is Garrett's test app</Text>
