@@ -15,7 +15,7 @@ function getUrlVars(location) {
 
 export default class App extends React.Component {
 
-  serverRedirectURI = "http://localhost/smartcar.php";
+  serverRedirectURI = "http://localhost/auth_token";
 
   constructor() {
     super();
